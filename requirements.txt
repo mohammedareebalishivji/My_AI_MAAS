@@ -1,0 +1,30 @@
+# Core
+ollama
+python-dotenv
+
+# Voice (optional - only needed for voice mode)
+# openai-whisper
+# SpeechRecognition
+# pyaudio
+# TTS  (Coqui XTTS v2)
+# torch
+# torchaudio
+
+# Web Interface & API
+fastapi
+uvicorn[standard]
+python-multipart
+websockets
+
+# Memory & RAG
+chromadb
+
+# Automation & Tools
+pyautogui
+psutil
+requests
+pyperclip
+
+# NLP (optional)
+# spacy
+# nltk

@@ -1,0 +1,28 @@
+# Virtual environments
+venv/
+venv_311/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local databases and logs
+data/
+*.log
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+# Audio/media output files
+*.wav
+*.mp3
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
