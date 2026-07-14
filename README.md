@@ -34,6 +34,37 @@ The system is highly modularized into specialized components:
 
 ---
 
+## 📐 Data Structures & Algorithms (DSA)
+
+JARVIS 2.0 implements several custom algorithms and data structures to optimize memory retrieval, intent classification, and fallback routing:
+
+### 1. Intent Classification & Scoring Algorithm
+- **Data Structures:** Custom `Skill` model schema mapping keyword aliases to specific function targets and expected argument lists.
+- **Algorithm:**
+  - **Sub-string / Regex Matching:** A custom classifier evaluates utterances against defined keyword boundaries `\b(?:open|launch)\b` to prevent false positive matches.
+  - **Keyword Length Priority Weighting:** Implements a length-sensitive scoring function:
+    $$\text{Score} = \sum (\text{length of matched keyword} \times 2)$$
+    This prioritizes more specific commands (e.g. `"launch app"`) over shorter, generic ones (e.g. `"open"`).
+  - **Class Classification:** A greedy sorting algorithm ranks candidate skills by score, picking the highest-ranking skill above a threshold.
+
+### 2. Retrieval-Augmented Generation (RAG) Memory
+- **Data Structures:** Dense vector collections, text chunks, metadata documents, and local index databases.
+- **Algorithms:**
+  - **Text Chunking Algorithm:** Implements a sliding window parser to segment documents or chats into overlapping blocks (`chunk_size` and `overlap` options), preserving conversational context.
+  - **HNSW (Hierarchical Navigable Small World):** Utilized within the ChromaDB engine to query high-dimensional embeddings using **Cosine Similarity** ($\text{hnsw:space} = \text{cosine}$).
+  - **Distance Relevance Filter:** Maps Cosine Distance values to normalized confidence metrics:
+    $$\text{Relevance} = 1.0 - \text{Cosine Distance}$$
+    Memories are pruned using a strict distance threshold limit ($d < 0.8$) to avoid injecting irrelevant historical details.
+
+### 3. Hybrid Routing & Fallback State Machine
+- **Algorithm:** Periodically monitors local engine connectivity. If local execution (Ollama) experiences latency spikes or becomes offline, requests are dynamically hot-swapped to remote LLM API gateways, ensuring high reliability.
+
+### 4. Relational Database Indexing
+- **Data Structures:** Relational table structures storing history and custom reminders.
+- **Algorithm:** Leverages B-Tree index structures for low-latency queries when pulling logs matching specific relational IDs or timestamps.
+
+---
+
 ## 🛠️ Tech Stack & Requirements
 
 Dependencies are specified in [requirements.txt](file:///Users/areebalishivji/Desktop/My_AI_MAAS/requirements.txt):
