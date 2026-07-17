@@ -12,7 +12,7 @@ class JarvisBrain:
     MAX_MESSAGES = 40
 
     def __init__(self):
-        self.model = os.getenv("OLLAMA_MODEL", "llama3.2")
+        self.model = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
         self.db = SQLiteMemory()
         self.system_prompt = (
             "You are J.A.R.V.I.S — personal AI for Mohammed Areeb Ali Shivji. "

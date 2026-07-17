@@ -75,7 +75,7 @@ check_ollama() {
 }
 
 check_model() {
-    local model="${OLLAMA_MODEL:-qwen2.5-coder:32b}"
+    local model="${OLLAMA_MODEL:-qwen2.5:7b}"
     local list_out
     list_out=$(ollama list 2>/dev/null || true)
     if echo "$list_out" | grep -q "$model"; then
@@ -263,7 +263,7 @@ cmd_status() {
     fi
 
     # Model
-    local model="${OLLAMA_MODEL:-qwen2.5-coder:32b}"
+    local model="${OLLAMA_MODEL:-qwen2.5:7b}"
     local list_out
     list_out=$(ollama list 2>/dev/null || true)
     if echo "$list_out" | grep -q "$model"; then
